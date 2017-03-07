@@ -1,0 +1,20 @@
+# Build settings - configuration file for jekyll (https://jekyllrb.com/)
+#
+# Use jekyll build (--watch) in shell to build the current directory into ./_site
+# Use jekyll serve (--watch) to build the site and start a local server
+# Attention: This file is *NOT* reloaded automatically when you use --watch.
+#            Changes to this file need a restart of the server process.
+markdown: kramdown
+permalink: pretty
+port: 9999
+sass:
+  sass_dir: assets/css
+  style: nested
+
+# Site settings - use the variables to dynamically write your code for the website
+title: dm-sheets
+email: phdenzel@gmail.com
+description: > # this means ignore newlines until "baseurl:"
+  A js experiment on the symplectic integration behaviour of dark matter sheets in phase-space
+baseurl: "" # subpath of the site, e.g. /blog
+github_username:  phdenzel
