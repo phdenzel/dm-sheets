@@ -17,4 +17,4 @@ jekyll serve --watch
  
 ### Where to find the physics
 
-The module simulating the physics is found in `assets/js/phase-model.js`
+The module simulating the physics is found in `assets/js/phase-space.js`
