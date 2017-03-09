@@ -6,13 +6,14 @@ var height = canvas.height = window.innerHeight;
 var origin = {x:0.5*width, y:0.5*height};
 var color = '#3DAA77';
 // data
-var N = 100;
+var N = 1000;
 var sheets = [];
 var sheetsBuffer = [];
 var xrange = [0.0, 1.0];
 // physics
 var grav = 0.04;
 var dt = 0.005;
+
 
 // draw coordinate system
 function coordsys(ctx) {
@@ -73,10 +74,14 @@ function mapInterval(val, A, B, a, b){
     return (val-A)*(b-a)/(B-A) + a;
 };
 
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+};
+
 // create sheets
 function createSheets(i) {
     var x = mapInterval(i, 0, N, xrange[0], xrange[1]);
-    var s = new DMsheet1d(x, 0.0);
+    var s = new DMsheet1d(x, getRandomArbitrary(0.001, 0.01));
     sheets.push(s);
 };
 
@@ -97,10 +102,11 @@ function evolve(sheets) {
     for (var i=0; i<N; i++) {
         sheets[i].potential();
     };
-    // Kick and Drift
+    // Kick
     for (var i=0; i<N; i++) {
         sheets[i].kick();
     };
+    // Drift
     for (var i=0; i<N; i++) {
         sheets[i].drift();
     };
