@@ -3,17 +3,19 @@ var canvas = document.getElementById('phase-space');
 var ctx = canvas.getContext('2d');
 var width = canvas.width = window.innerWidth;
 var height = canvas.height = window.innerHeight;
-var origin = {x:0.5*width, y:0.5*height}; // canvas origin at top left
-var proj_x = {min:0.5*origin.x, max:1.5*origin.x};
-var proj_y = {min:0.0, max:height};
-var color = '#3DAA77';
+var origin = {x:0.5*width, y:0.5*height}; // shifted from top left
+var colors = {green:'#3DAA77', orange:'#FDB760', magenta:'#E83A82'};
+
 // data & physics
-var N = 1000;
+var N = 500;
 var grav = 0.04;
 var dt = 0.005;
+var random_init = true;
 var particles = [];
 var xrange = [0.0, 1.0]; // used for initial conditions
-var vrange = [10.0, -10.0]; // should simply cover the min/max velocity
+var vrange = [10.0, -10.0]; // should simply cover the max/min velocity
+var proj_x = {min:0.5*origin.x, max:1.5*origin.x}; // projected xrange
+var proj_y = {min:0.0, max:height}; // projected vrange
 
 // linear mapping of value from [A, B] > [a, b]
 function mapInterval(val, A, B, a, b){
@@ -44,14 +46,19 @@ function coordsys(ctx) {
 };
 
 // Particle class
-function DMParticle1d(x, vx, ax=0, m=1) {
+function DMParticle1d(x, vx, ax=0, m=1, color=colors.green) {
+    // Defaults
+    // ax = typeof ax !== 'undefined' ? ax : 0;
+    // m = typeof m !== 'undefined' ? m : 1;
+    // color = typeof color !== 'undefined' ? color : colors.green;
     // Constructs a 1D dark matter particle with its phase-space coordinates
     var _this = this;
     this.x = x;
     this.vx = vx;
     this.ax = ax;
     this.m = m;
-    var size = 5+m;
+    this.color = color;
+    this.size = Math.max(m/10, 5);
     // drift half-step
     this.drift = function() {
         _this.x += _this.vx * 0.5*dt;
@@ -66,13 +73,13 @@ function DMParticle1d(x, vx, ax=0, m=1) {
     };
     // draw the particles as points
     this.draw = function() {
-        ctx.fillStyle = color;
+        ctx.fillStyle = _this.color;
         // remember that we're in phase-space
         var xc = mapInterval(_this.x, xrange[0], xrange[1],
                              proj_x.min, proj_x.max);
         var yc = mapInterval(_this.vx, vrange[0], vrange[1],
                              proj_y.min, proj_y.max);
-        ctx.fillRect(xc, yc, size, size);
+        ctx.fillRect(xc, yc, _this.size, _this.size);
     };
 };
 
@@ -89,16 +96,26 @@ function force1d(p) {
 };
 
 // initial conditions
-function createParticles(i) {
+function createParticles() {
+    // DM particles
     for (var i=0; i<N; i++) {
         // evenly spaced
         var x = mapInterval(i, 0, N, xrange[0], xrange[1]);
-        // at rest, i.e. vx=0
-        //var s = new DMParticle1d(x, 0.0);
-        // small random perturbation in vx
-        var p = new DMParticle1d(x, getRandomArbitrary(-0.01, 0.01));
-        particles.push(p);  
+        if (random_init) { // small random perturbation in vx
+            var p = new DMParticle1d(x, getRandomArbitrary(-0.01, 0.01));
+        } else { // at rest, i.e. vx=0
+            var p = new DMParticle1d(x, 0.0);
+        }
+        particles.push(p);
     };
+};
+
+function add_star() {
+    // Star
+    var s = new DMParticle1d(0.75, 0.0, 0.0, 100, colors.orange);
+    console.log(s.m);
+    particles.push(s);
+    N += 1;
 };
 
 // evolves an array of particles
@@ -134,7 +151,7 @@ function render() {
     // log total momentum
     var conserv = 0
     for (var i=0; i<N; i++) {
-        conserv += particles[i].vx;
+        conserv += particles[i].vx*particles[i].m;
     }
     console.log(conserv);
     // redraw coordinate system
@@ -151,4 +168,5 @@ function resize() {
 
 // Main
 createParticles();
+add_star();
 render();
