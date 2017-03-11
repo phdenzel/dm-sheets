@@ -18,3 +18,8 @@ jekyll serve --watch
 ### Where to find the physics
 
 The module simulating the physics is found in `assets/js/phase-space.js`
+
+
+### Website
+
+If you don't want to go through all the trouble of creating a local server and running the javascript, just visit <https://phdenzel.github.io/dm-sheets/> to watch the simulation.
