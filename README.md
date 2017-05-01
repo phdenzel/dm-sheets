@@ -13,7 +13,7 @@ jekyll serve --watch
  to set up local server (default is 9999).
  Then open your browser (tried on Chrome and Firefox) and type http://localhost:9999/ to connect to the server.
  
- Of course, if preferred, you can set up a local server by any other means, e.g. node.js. If this is the case, use the pre-compiled `_site` folder.
+ Of course, if preferred, you can set up a local server by any other means, e.g. node.js.
  
 ### Where to find the physics
 
