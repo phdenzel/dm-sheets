@@ -7,7 +7,7 @@ var origin = {x:0.5*width, y:0.5*height}; // shifted from top left
 var colors = {green:'#3DAA77', orange:'#FDB760', magenta:'#E83A82'};
 
 // data & physics
-var N = 500;
+var N = 1000;
 var grav = 0.04;
 var dt = 0.005;
 var random_init = true;
@@ -112,7 +112,7 @@ function createParticles() {
 
 function add_star() {
     // Star
-    var s = new DMParticle1d(0.75, 0.0, 0.0, 100, colors.orange);
+    var s = new DMParticle1d(0.75, 0.1, 0.0, 50, colors.orange);
     console.log(s.m);
     particles.push(s);
     N += 1;
