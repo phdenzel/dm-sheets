@@ -7,9 +7,9 @@
 markdown: redcarpet
 permalink: pretty
 # port: 9999
-sass:
-  sass_dir: assets/css
-  style: nested
+# sass:
+#   sass_dir: assets/css
+#   style: nested
 
 # Site settings - use the variables to dynamically write your code for the website
 title: dm-sheets
