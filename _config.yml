@@ -16,7 +16,7 @@ title: dm-sheets
 email: phdenzel@physik.uzh.ch
 description: > # this means ignore newlines until "baseurl:"
   A js experiment on the symplectic integration behaviour of dark matter sheets in phase-space
-baseurl: "/dm-sheets" # subpath of the site, e.g. /blog
+#baseurl: "/dm-sheets" # subpath of the site, e.g. /blog
 #url: "http://phdenzel.io" # the base hostname & protocol for the site
-github_username: phdenzel
-twitter_username: @phdenzel
+#github_username: phdenzel
+#twitter_username: @phdenzel
