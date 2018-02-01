@@ -1,5 +1,5 @@
 // canvas
-var canvas = document.getElementById('phase-space');
+var canvas = document.getElementById("phase-space");
 var ctx = canvas.getContext('2d');
 var width = canvas.width = window.innerWidth;
 var height = canvas.height = window.innerHeight;

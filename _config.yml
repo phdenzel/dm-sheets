@@ -19,4 +19,4 @@ description: > # this means ignore newlines until "baseurl:"
 baseurl: "/dm-sheets" # subpath of the site, e.g. /blog
 #url: "http://phdenzel.io" # the base hostname & protocol for the site
 github_username: phdenzel
-#twitter_username:
+twitter_username: @phdenzel
